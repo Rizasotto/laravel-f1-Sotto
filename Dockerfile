@@ -10,10 +10,10 @@ WORKDIR /app
 
 COPY . .
 
+RUN mkdir -p bootstrap/cache storage/framework/cache storage/framework/sessions storage/framework/views
+
+RUN chmod -R 775 storage bootstrap/cache
+
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 RUN php artisan package:discover --ansi
-
-EXPOSE 10000
-
-CMD php artisan serve --host=0.0.0.0 --port=$PORT
