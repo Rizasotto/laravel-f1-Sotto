@@ -27,7 +27,9 @@ COPY . .
 
 COPY --from=frontend /app/public/build ./public/build
 
-RUN composer install --no-dev --optimize-autoloader
+RUN mkdir -p bootstrap/cache \
+    && chmod -R 775 bootstrap/cache \
+    && composer install --no-dev --optimize-autoloader
 
 EXPOSE 10000
 
