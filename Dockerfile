@@ -27,8 +27,13 @@ COPY . .
 
 COPY --from=frontend /app/public/build ./public/build
 
-RUN mkdir -p bootstrap/cache \
-    && chmod -R 775 bootstrap/cache \
+RUN mkdir -p \
+    bootstrap/cache \
+    storage/framework/cache \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs \
+    && chmod -R 775 bootstrap/cache storage \
     && composer install --no-dev --optimize-autoloader
 
 EXPOSE 10000
